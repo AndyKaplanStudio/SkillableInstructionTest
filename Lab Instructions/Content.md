@@ -2,7 +2,7 @@
 
 :::module(module=Environment)
 
-### End User Licensing Agreement
+### End User Licensing Agreement TEST
 
 By using this lab solution, you agree to the terms outlined in the End User License Agreement (EULA), which you can review by following this ^[link][Reference Link].
 
