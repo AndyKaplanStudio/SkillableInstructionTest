@@ -1,184 +1,187 @@
-!INSTRUCTIONS [ ](https://raw.githubusercontent.com/LODSContent/SkillableLabSolutions/main/Header.md)
+---
+lab:
+  title: Get data in Power BI
+  module: Get data in Power BI
+  description: In this hands-on lab, you'll gain practical experience connecting Power BI Desktop to different data sources (including SQL Server) and importing data. You'll learn to use Power Query to preview source data and apply data profiling techniques to understand data characteristics and assess data quality. This foundational lab establishes essential skills for data acquisition and initial data assessment in Power BI.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Power BI
+---
 
-:::module(module=Environment)
+# Get data in Power BI
 
-### End User Licensing Agreement TEST
+## Lab story
 
-By using this lab solution, you agree to the terms outlined in the End User License Agreement (EULA), which you can review by following this ^[link][Reference Link].
+This lab is designed to introduce you to Power BI Desktop application and how to connect to data and how to use data preview techniques to understand the characteristics and quality of the source data.
 
-> [Reference Link]:
-> !instructions [ ](https://raw.githubusercontent.com/LODSContent/SkillableLabSolutions/main/EULA%20062424.md)
+In this lab, you learn how to:
 
-### Environment
+- Open Power BI Desktop.
+- Connect to different data sources.
+- Preview source data with Power Query.
+- Use data profiling features in Power Query.
 
-| Item | Detail |
-| :--- | :----- |
-| **Description** | Windows 11 Desktop with Edge |
-| **Operating System** | Windows 11 Desktop |
-| **Software/Configuration** | Default installation with Desktop Experience, no supplemental software |
-| **Platform/Fabric** | Hyper-V Virtual Machine |
-| **Hardware** | 4 CPU, 16GB Memory |
-| **Networking** | Internet access provided |
-|  |  |
+**This lab should take approximately 30 minutes.**
 
-:::
+## Get started with Power BI Desktop
 
+To complete this exercise, first open a web browser and enter the following URL to download the zip folder:
 
-:::module(module=Access&#32and&#32Credentials)
+`https://github.com/MicrosoftLearning/PL-300-Microsoft-Power-BI-Data-Analyst/raw/Main/Allfiles/Labs/01-get-data-in-power-bi/01-get-data.zip`
 
-### Access and Credentials
+Extract the folder to the **C:\Users\Student\Downloads\01-get-data** folder.
 
-| Item | Detail |
-| :--- | :----- |
-| User | +++@lab.VirtualMachine(Workstation1).Username+++ |
-| Password | +++@lab.VirtualMachine(Workstation1).Password+++ |
-|  |  |
+Open the **01-Starter-Sales Analysis.pbix** file.
 
-:::
+- This starter file has been specially configured to help you complete the lab. The following report-level settings have been disabled in the starter file:
 
+  - Data Load > Import relationships from data sources on first load
+  - Data Load > Autodetect new relationships after data is loaded
 
-:::module(module=Software&#32and&#32Updates)
+## Get data from SQL Server
 
-### Software and Updates
+This task teaches you how to connect to a SQL Server database and import tables, which create queries in Power Query.
 
-| Software Product | Install Date or Version | Configuration Notes |
-| :--------------- | :---------------------- | :------------------ |
-| Windows 11 Desktop | 23H2 | Installed with the latest patches and updates. |
-|  |  |
+1. On the **Home** ribbon tab, from inside the **Data** group, select **SQL Server**.
 
+     ![SQL Server Get Data icon](Linked_image_Files/01-get-data-in-power-bi_image11.png)
 
-> [!note] Software patches current as of 08/13/2024.
+1. In the **SQL Server Database** window, in the **Server** box, enter **localhost** and leave **Database** blank, then select **OK**.
 
-:::
+    > ***Note**: In this lab, you’ll connect to the SQL Server database by using **localhost**. While this is fine for the lab, it’s not considered a best practice for real-world solutions.*
 
+1. If prompted for credentials, select **Windows > Use my current credentials**, and then **Connect**.
 
-:::module(module=Skillable&#32Optimizations)
+1. Select **OK** if you receive a warning that an encrypted connection cannot be established.
 
-### Skillable Optimizations
+1. In the **Navigator** pane, expand the **AdventureWorksDW2020** database.
 
-For more information, see the [Optimization](https://docs.skillable.com/docs/skillable-virtual-machine-optimization-recommendations) documentation.
+    > ***Note**: The **AdventureWorksDW2020** database is based on the **AdventureWorksDW2017** sample database. It has been modified to support the learning objectives of the course labs.*
 
-:::
+1. Select the **DimEmployee** table, and notice the preview of the table data.
 
+     ![AdventureWorksDW2020 database with DimEmployee indicated](Linked_image_Files/01-get-data-in-power-bi_image18.png)
 
-:::module(module=Software&#32Licensing)
+    > ***Note**: The preview data allows you to see the columns and a sample of rows.*
 
-### Software Licensing
+1. Select the following tables by **checking the boxes** next to their names.
 
-Skillable can optionally provide license activation for certain operating systems or Microsoft software products. If you would like to discuss license option please contact your account executive. All other licensing is the responsibility of the user of this template.
+    - DimEmployee
+    - DimEmployeeSalesTerritory
+    - DimProduct
+    - DimReseller
+    - DimSalesTerritory
+    - FactResellerSales
 
-For more information, see the [Windows licensing](https://docs.skillable.com/docs/windows-licensing) documentation.
+1. Complete this task by selecting **Transform Data**, which will open Power Query Editor - leave this open for the next task.
 
-> [+]How do I activate Microsoft Windows?
-> 
-> Activating Windows in labs can be achieved one of three ways depending on your use cases:
->
-> 1. Rearm: When the software environment is complete. Opening an administrative command or PowerShell prompt and using the command `slmgr -rearm` will reset the Windows activation clock.
-> 2. Use a Multiple Activation Key (MAK): You can add your own Microsoft Windows Product Key to license the Windows software. This can be added using the Activation tool in Settings.
-> 3. Using a Skillable License: Skillable can activate and license the Windows VM automatically. If you have already signed up for a SPLA agreement just ensure the production copies of the Lab Profiles are saved to your  **<CompanyName> - Production - SPLA** organization. This will automatically license the Windows VM for you. If you do not have a SPLA agreement, please see the [Windows and Office licensing](https://docs.skillable.com/docs/windows-licensing) documentation.
+You've now connected to six tables from a SQL Server database.
 
-:::
+## Preview Data in Power Query Editor
 
+This task introduces the Power Query Editor and allows you to review and profile the data. This helps you determine how to clean and transform the data later. You'll also review both dimension tables prefixed with "Dim" and fact tables prefixed with "Fact".
 
-:::module(module=Using&#32this&#32Template)
+1. In the **Power Query Editor** window, at the left, notice the **Queries** pane. The **Queries** pane contains one query for each table you checked.
 
-## Using this Template
+     ![List of loaded queries](Linked_image_Files/01-get-data-in-power-bi_image20.png)
 
-> [+Alert]Saving changes
-> 
-> If you customize the software environment the changes need to be saved to become persistent. Review the section below on committing changes to see how to do this.
+1. Select the **DimEmployee** query.
 
-> [+]Any restrictions on the software I can install and use?
-> 
-> Any software that meets Skillable's lab software usage policy and does not contravene the [Terms and Conditions](https://www.skillable.com/company/legal-and-security/terms-and-conditions/) may be installed.
+    > *The **DimEmployee** table in the SQL Server database stores one row for each employee. A subset of the rows from this table represents the salespeople, which will be relevant to the model you’ll develop.*
 
-> [+]How do I modify, add content to the environment?
-> 
-> The environment can be modified just like a normal operating system. Adding software can be achieved in several ways. The size of the application may impact the method you choose. Here are the options, in preferred order to minimize negative impact on the VM's performance:
->
-> 1. For applications less than 2GB, use the **Load Files** on the Settings menu
-> 2. For applications greater than 2GB, upload an ISO file into the Skillable storage using the Skillable [Manage Storage tool](https://labondemand.com/Storage) on the Studio Admin page
-> 3. If the VM has Internet access, the application can be downloaded from the Internet, which is best for small applications of a few MB's in size. Also, use InPrivate/Incognito browsing to leave a minimum browser impact in the VM
->
-> If you make any changes to the environment, they are not saved until **committed**.
+1. At the bottom left corner of the status bar, some table statistics are provided—the table has 33 columns, and 296 rows.
 
-> [+]Operating system updates and patches
-> 
-> To ensure optimal performance, Windows software updating (including applications) using the Windows Update service is disabled. This environment and its applications were updated based on the published date unless otherwise noted in the [software and updates](#software-and-updates) section.
-> 
-> If you wish to install additional updates you may do so manually, or enable Windows Update by reversing the instructions in the [Skillable optimization documentation](https://docs.skillable.com/docs/skillable-virtual-machine-optimization-recommendations).
-> 
-> If you enable Windows Update, it is highly recommended that you follow the same instructions to disable it before committing changes to the lab.
+     ![Count of 33 columns, 296 rows](Linked_image_Files/01-get-data-in-power-bi_image22.png)
 
-> [+] Committing changes to the Lab Profile
-> 
-> If you have made changes to the environment and those changes need to persist, they have to be committed (saved). If the running lab is ended without saving it, all modifications to the environment will be lost.
-> 
-> To commit/save the changes, from the Settings menu, choose the **Commit Changes** option and follow the instructions.
+1. In the data preview pane, scroll horizontally to review all columns. Notice that the last five columns contain **Table** or **Value** links.
 
-> [+]Publishing a Lab Profile
-> 
-> Publishing a Lab Profile makes it available on customer/user-facing platforms, such as commercial LMSs (e.g., Blackboard or Cornerstone), the Skillable Training Management System, or an organization’s in-house developed system. The basic process for publishing is as follows:
->
-> 1. **Copy the Lab Series and the Lab Profile** (single action) to the ***companyname* - Production** organization.
-> 2. **Test launch the new Lab Profile** to ensure it functions correctly.
-> 3. **Edit the Lab Profile** and set the development state to complete.
-> 4. **Request a security review** if the Lab Profile includes cloud components.
-> 5. **Edit the Lab Series** and specify the API Endpoint (Consumer) that the Lab Series should be advertised to on the Publish page. Multiple endpoints can be chosen if > required.
-> 6. **Save the Lab Series**.
->
-> For full details, refer to the document [Publish Lab Series](https://docs.skillable.com/docs/publish-lab-series).
+    > *These five columns represent relationships to other tables in the database. They can be used to join tables together. You’ll join these tables later in the **Load Transformed Data in Power BI Desktop** lab.*
 
+1. To assess column quality, on the **View** ribbon tab, from inside the **Data Preview** group, check **Column Quality**. The column quality feature allows you to easily determine the percentage of valid, error, or empty values found in columns.
 
+     ![Column Quality selection in ribbon](Linked_image_Files/01-get-data-in-power-bi_image23.png)
 
-> [!knowledge] For more information, review the documentation on [Template Gallery](https://docs.skillable.com/docs/template-gallery)
+1. Notice that the **Position** column has 94% empty (null) rows.
 
-:::
+     ![Column quality showing 94% empty rows](Linked_image_Files/01-get-data-in-power-bi_image24.png)
 
+1. To assess column distribution, on the **View** ribbon tab, from inside the **Data Preview** group, check **Column Distribution**.
 
-:::module(module=Scoring&#32this&#32Template)
+1. Review the **Position** column again, and notice that there are four distinct values, and one unique value.
 
-### Scoring this Template
+1. Review the column distribution for the **EmployeeKey** column—there are 296 distinct values, and 296 unique values.
 
-Skillable labs offer robust capabilities to validate user performance in software environments through a feature called Automated Activities. Detailed information with examples can be reviewed on our [Validating Skills](https://docs.skillable.com/docs/pbt-overview) documentation page.
+     ![Column distribution showing 296 distinct, 296 unique values](Linked_image_Files/01-get-data-in-power-bi_image26.png)
 
-In Windows-based environments, we recommend using PowerShell as the scripting language. Skillable also provides tools including the Scripting Copilot and Script Library to get you started.
+    > ***Note**: When the distinct and unique counts are the same, it means the column contains unique values. When modeling, it’s important that some model tables have unique columns. These unique columns can be used to create one-to-many relationships, which you'll do in the **Model Data in Power BI Desktop** lab.*
 
-* Skillable Copilot: Enables you to use AI to create the script for you
-* The Script Library: Contains customizable example scripts to streamline script creation.
+1. In the **Queries** pane, select the **DimProduct** query.
 
-> [+]Example Scoring Script - From the Script library
-> 
-> This is an example of a PowerShell validation script for a Windows VM. This script will check to see if a file has been created. Line 5 can be modified to specify the filename that needs to be checked. If the file is found, the script returns boolean **True**. If the file is not found, a boolean **False** is returned. This can be added to an Automated Activity in the instructions.
->
-> ```powershell-linenums
-> # Set '$result' to FALSE so the Activity is not completed by default.
-> $result = $false
-> 
-> # Query variables. Modify these to match the lab environment.
-> $file = "C:\labfiles\output.txt"
-> $evidence = "The file $file was not found"
-> 
-> 
-> # Try/Catch block to suppress any errors.
-> try {
->    # Enter commands to get values.
->    $exists = Test-Path -Path $file
->    
->    # Test output of commands for expected value.
->    if ($exists -eq $true) {
->        # Set '$result' to TRUE for completing Activity correctly.
->        $evidence = "The file $file was found"
->        $result = $true
->    }
-> } catch {
->    return $result
-> }
-> 
-> # Return the result of the Activity script.
-> $evidence
-> return $result
-> 
-> ```
+    > *The **DimProduct** table contains one row per product sold by the company.*
 
-:::
+1. In the **Queries** pane, select the **DimReseller** query.
+
+    > *The **DimReseller** table contains one row per reseller. Resellers sell, distribute, or value add to the Adventure Works products.*
+
+1. To view column values, on the **View** ribbon tab, from inside the **Data Preview** group, check **Column Profile**.
+
+1. Select the **BusinessType** column header, and notice the new pane beneath the data preview pane. Review the column statistics and value distribution in the data preview pane.
+
+    > *Notice the data quality issue: there are two labels for warehouse (**Warehouse**, and the misspelled **Ware House**).*
+
+     ![Value distribution for the BusinessType column](Linked_image_Files/01-get-data-in-power-bi_image31.png)
+
+1. Hover the cursor over the **Ware House** bar, and notice that there are five rows with this value.
+
+1. In the **Queries** pane, select the **DimSalesTerritory** query.  
+
+    > *The **DimSalesTerritory** table contains one row per sales region, including **Corporate HQ** (headquarters). Regions are assigned to a country, and countries are assigned to groups. In the **Model Data in Power BI Desktop** lab, you’ll create a hierarchy to support analysis at region, country, or group level.*
+
+1. In the **Queries** pane, select the **FactResellerSales** query.
+
+    > *The **FactResellerSales** table contains one row per sales order line—a sales order contains one or more line items.*
+
+1. Review the column quality for the **TotalProductCost** column, and notice that 8% of the rows are empty.
+
+    > *Missing **TotalProductCost** column values is a data quality issue.*
+
+## Get data from a CSV file
+
+In this task, you'll create a new query based on CSV files.
+
+1. To add a new query, in the **Power Query Editor** window, on the **Home** ribbon tab, from inside the **New Query** group, select the **New Source** down-arrow, and then select **Text/CSV**.
+
+1. Navigate to the **Downloads > 01-get-data** folder you extracted earlier and select the **ResellerSalesTargets.csv** file. Select **Open**.
+
+1. In the **ResellerSalesTargets.csv** window, review the preview data. Select **OK**.
+
+1. In the **Queries** pane, notice the addition of the **ResellerSalesTargets** query.
+
+    > *The **ResellerSalesTargets** CSV file contains one row per salesperson, per year. Each row records 12 monthly sales targets (expressed in thousands). The business year for the Adventure Works company commences on July 1.*
+
+1. Notice that no column contains empty values.  If a monthly sales target is missing, the column shows a hyphen instead.
+
+1. Review the icons in each column header, to the left of the column name. The icons represent the column data type. **123** is whole number, and **ABC** is text.
+
+     ![Column data type](Linked_image_Files/01-get-data-in-power-bi_image38.png)
+
+1. Repeat the steps to create a query based on the **ColorFormats.csv** file.
+
+    > *The **ColorFormats** CSV file contains one row per product color. Each row records the HEX codes to format background and font colors.*
+
+You should now have two new queries, **ResellerSalesTargets** and **ColorFormats**.
+
+ ![Queries list](Linked_image_Files/01-get-data-in-power-bi_image43.png)
+
+## Lab complete
+
+You may choose to save your Power BI report, though it’s not necessary for this lab. In the next exercise, you’ll work with a pre-made starter file.
+
+1. Navigate to the **"File"** menu in the top left corner and select **"Save As"**. 
+1. Select **Browse this device**.
+1. Select the folder where you want to save the file and give it a descriptive name. 
+1. Select the **Save** button to save your report as a .pbix file. 
+1. If a dialog box appears prompting you to apply pending query changes, select **Apply**.
+1. Close Power BI Desktop.
